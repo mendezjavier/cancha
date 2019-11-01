@@ -1,0 +1,716 @@
+{
+	"info": {
+		"_postman_id": "78f88cf5-de50-4f83-a376-30c558185396",
+		"name": "CANCHA_APP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "USER: SIGNUP - USER_ROLE",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "User 1",
+							"type": "text"
+						},
+						{
+							"key": "surname",
+							"value": "TEST",
+							"type": "text"
+						},
+						{
+							"key": "nick",
+							"value": "user_1",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "1@user.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "cancha",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/signup",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "USER: LOGIN - USER_ROLE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fbe15380-d0c4-4189-ad44-2f89dd8a76a3",
+						"type": "text/javascript",
+						"exec": [
+							"let jsonData = pm.response.json();",
+							"//pm.variables.set('token',jsonData.token);",
+							"",
+							"pm.environment.set(\"token\", jsonData.token);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "1@user.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "cancha",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "USER: LOGIN - ADMIN_ROLE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9c2b6aa2-8752-4393-b8a2-df544acce7ed",
+						"type": "text/javascript",
+						"exec": [
+							"let jsonData = pm.response.json();",
+							"//pm.variables.set('token',jsonData.token);",
+							"",
+							"pm.environment.set(\"token_admin\", jsonData.token);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "1@admin.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "cancha",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "USER: SIGNUP - ADMIN_ROLE",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Admin1",
+							"type": "text"
+						},
+						{
+							"key": "surname",
+							"value": "TEST",
+							"type": "text"
+						},
+						{
+							"key": "nick",
+							"value": "admin_1",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "1@admin.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "cancha",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user-admin",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user-admin"
+					]
+				},
+				"description": "Solo para desa"
+			},
+			"response": []
+		},
+		{
+			"name": "PLACE: ADD NEW",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token_admin}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "La Esquina del Futbol",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Prueba 2",
+							"type": "text"
+						},
+						{
+							"key": "street",
+							"value": "General Juan Álvarez de Arenales, Gral. Cornelio Saavedra &, Morón, Buenos Aires",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Moron",
+							"type": "text"
+						},
+						{
+							"key": "state",
+							"value": "Buenos Aires",
+							"type": "text"
+						},
+						{
+							"key": "postCode",
+							"value": "1706",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "Argentina",
+							"type": "text"
+						},
+						{
+							"key": "lng",
+							"value": "-58.6012231",
+							"type": "text"
+						},
+						{
+							"key": "lat",
+							"value": "-34.6550126",
+							"type": "text"
+						},
+						{
+							"key": "types",
+							"value": "sintetico",
+							"type": "text"
+						},
+						{
+							"key": "sports",
+							"value": "futbol",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/new-place",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"new-place"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FIELD: ADD NEW",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token_admin}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "type",
+							"value": "SINTETICO",
+							"type": "text"
+						},
+						{
+							"key": "sports",
+							"value": "futbol",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "1200",
+							"type": "text"
+						},
+						{
+							"key": "place_id",
+							"value": "5ba11023cacb493178315f3d",
+							"type": "text"
+						},
+						{
+							"key": "players",
+							"value": "14",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/new-field",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"new-field"
+					]
+				},
+				"description": "Agrega un campo nuevo a una cancha"
+			},
+			"response": []
+		},
+		{
+			"name": "FIELD: RESERVE FIELD",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "from",
+							"value": "2018/09/19 20:00:00",
+							"type": "text"
+						},
+						{
+							"key": "to",
+							"value": "2018/09/19 22:00:00",
+							"type": "text"
+						},
+						{
+							"key": "field_id",
+							"value": "5ba113eed7a3741b80366579",
+							"description": "Optional",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "place_id",
+							"value": "5ba11023cacb493178315f3d",
+							"type": "text"
+						},
+						{
+							"key": "players",
+							"value": "10",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/place/reserve",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"place",
+						"reserve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PLACE: CHECK AVAILABILITY",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "from",
+							"value": "2018/09/19 22:00:00",
+							"type": "text"
+						},
+						{
+							"key": "to",
+							"value": "2018/09/19 23:00:00",
+							"type": "text"
+						},
+						{
+							"key": "field_id",
+							"value": "5ba113eed7a3741b80366579",
+							"description": "Opcional? es necesario? ponele que si",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "place_id",
+							"value": "5ba11023cacb493178315f3d",
+							"type": "text"
+						},
+						{
+							"key": "players",
+							"value": "10",
+							"description": "Opcional",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/place-availability",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"place-availability"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RESERVATION: CANCEL USER RESERVATION",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "reservation",
+							"value": "5ba13258c352af16e41e9f39",
+							"type": "text"
+						},
+						{
+							"key": "state",
+							"value": "CONFIRMED",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/update-reservation",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"update-reservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ALL FIELDS WITH RESERVATIONS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/api/field/reservations",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"field",
+						"reservations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "USER: GET RESERVATIONS",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/user-reservation?state=CANCELED",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user-reservation"
+					],
+					"query": [
+						{
+							"key": "state",
+							"value": "CANCELED"
+						}
+					]
+				},
+				"description": "OBTIENE TODAS LAS RESERVAS DEL USUARIO (ID OBTENIDO DEL TOKEN).\nPARAMETROS POR QUERY:\nfrom: defecto 0\nlimit: defecto 5\n?from:1&limit:10"
+			},
+			"response": []
+		},
+		{
+			"name": "PLACES: GET ALL FROM BOUNDS",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/places?ne_lat=-34.63555112200624&ne_lng=-58.572538029815576&sw_lat=-58.62403644290151&sw_lng=-58.62403644290151",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"places"
+					],
+					"query": [
+						{
+							"key": "ne_lat",
+							"value": "-34.63555112200624"
+						},
+						{
+							"key": "ne_lng",
+							"value": "-58.572538029815576"
+						},
+						{
+							"key": "sw_lat",
+							"value": "-58.62403644290151"
+						},
+						{
+							"key": "sw_lng",
+							"value": "-58.62403644290151"
+						}
+					]
+				},
+				"description": "?ne_lat=-34.63555112200624&ne_lng=-58.572538029815576&sw_lat=-58.62403644290151&sw_lng=-58.62403644290151"
+			},
+			"response": []
+		},
+		{
+			"name": "PLACES: GET BOUNDS WITH FILTERS",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/places-filters?ne_lat=-34.63555112200624&ne_lng=-58.572538029815576&sw_lat=-58.62403644290151&sw_lng=-58.62403644290151&from=2018/09/20 20:00:00&to=2018/09/20 21:00:00&players=10&price=1700",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"places-filters"
+					],
+					"query": [
+						{
+							"key": "ne_lat",
+							"value": "-34.63555112200624"
+						},
+						{
+							"key": "ne_lng",
+							"value": "-58.572538029815576"
+						},
+						{
+							"key": "sw_lat",
+							"value": "-58.62403644290151"
+						},
+						{
+							"key": "sw_lng",
+							"value": "-58.62403644290151"
+						},
+						{
+							"key": "from",
+							"value": "2018/09/20 20:00:00"
+						},
+						{
+							"key": "to",
+							"value": "2018/09/20 21:00:00"
+						},
+						{
+							"key": "players",
+							"value": "10"
+						},
+						{
+							"key": "price",
+							"value": "1700"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "USER_RESER: CANCELAR RESERVA DE USUARIO",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "reservation",
+							"value": "5ba166b55866b62d842bad2b",
+							"type": "text"
+						},
+						{
+							"key": "state",
+							"value": "CONFIRMED",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/cancel-reservation",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"cancel-reservation"
+					]
+				},
+				"description": "Mandar id de reserva:\nreservation: _id\nstate?: CANCELED,CONFIRMED,RESERVED"
+			},
+			"response": []
+		}
+	]
+}

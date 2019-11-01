@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Canchas APP</title>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="216111411838-78363qavvtsqsg0kp980sbn9321enqst.apps.googleusercontent.com">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</head>
+<style>
+    /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+    
+    #map {
+        height: 500px;
+        width: 100%;
+    }
+    
+    .container {
+        margin: 20px !important;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand">CANCHAS APP</a>
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <div id="map"></div>
+            </div>
+            <div class="col-6">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="latitud">Latitud</label>
+                            <input type="text" class="form-control" id="latitud" placeholder="Latitud">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="longitud">Longitud</label>
+                            <input type="text" class="form-control" id="longitud" placeholder="Longitud">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAddress">Address</label>
+                        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputCity">City</label>
+                            <input type="text" class="form-control" id="inputCity">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputState">State</label>
+                            <select id="inputState" class="form-control">
+                                <option selected>Choose...</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">Zip</label>
+                            <input type="text" class="form-control" id="inputZip">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="gridCheck">
+                            <label class="form-check-label" for="gridCheck">
+        Check me out
+      </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+    <script>
+        /*
+                                                                                                                                                                                                                     function onSignIn(googleUser) {
+
+                                                                                                                                                                                                                            var profile = googleUser.getBasicProfile();
+                                                                                                                                                                                                                            var id_token = googleUser.getAuthResponse().id_token;
+                                                                                                                                                                                                                            console.log(id_token);
+                                                                                                                                                                                                                            var xhr = new XMLHttpRequest();
+                                                                                                                                                                                                                            xhr.open('POST', '/google');
+                                                                                                                                                                                                                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                                                                                                                                                                                                            xhr.onload = function() {
+                                                                                                                                                                                                                                console.log('Signed in as: ' + xhr.responseText);
+                                                                                                                                                                                                                            };
+                                                                                                                                                                                                                            xhr.send('idtoken=' + id_token);
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                        */
+    </script>
+    <!-- <a href="#" onclick="signOut();">Sign out</a> -->
+    <script>
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function() {
+                console.log('User signed out.');
+            });
+        }
+    </script>
+
+
+    <script type="text/javascript">
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 10,
+                center: new google.maps.LatLng(-34.564585, -58.478086),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            geocoder = new google.maps.Geocoder;
+            var infowindow = new google.maps.InfoWindow;
+            google.maps.event.addListener(map, 'idle', function() {
+                var bounds = map.getBounds();
+                ne = bounds.getNorthEast();
+                sw = bounds.getSouthWest();
+                var boundsFilter = 'ne_lat=' + ne.lat() + '&ne_lng=' + ne.lng() + '&sw_lat=' + sw.lng() + '&sw_lng=' + sw.lng();
+                // console.log('ne_lat=' + ne.lat() + '&ne_lng=' + ne.lng() + '&sw_lat=' + sw.lng() + '&sw_lng=' + sw.lng());
+                obtenerCanchas(boundsFilter);
+
+                // console.log('ne_lat:' + ne.lat());
+                // console.log('ne_lng:' + ne.lng());
+                // console.log(+'&sw_lat:' + sw.lng());
+                // console.log(+'&sw_lng:' + sw.lng());
+                //do whatever you want with those bounds
+            });
+            google.maps.event.addListener(map, 'click', function(e) {
+                markersNew.forEach(function(marker) {
+                    marker.setMap(null);
+                });
+                markersNew = []
+                var marker = new google.maps.Marker({
+                    position: e["latLng"],
+                    map: map,
+                    title: "Hello world!"
+                });
+                var latlng = e["latLng"];
+                console.log(latlng);
+
+                $('#latitud').val(latlng.lat());
+                $('#longitud').val(latlng.lng());
+                geocoder.geocode({
+                    'location': {
+                        lat: latlng.lat(),
+                        lng: latlng.lng()
+                    }
+                }, function(results, status) {
+                    if (status === 'OK') {
+                        if (results[0]) {
+                            console.log(results[0]);
+                            var direccion = results[0].formatted_address;
+                            $('#inputAddress').val(direccion);
+                            // $('#inputCity').val(direccion.split(',')[2]);
+                            // $('#inputZip').val(direccion.split(',')[1]);
+                            /*
+                            map.setZoom(11);
+                            var marker = new google.maps.Marker({
+                                position: latlng,
+                                map: map
+                            });
+                            */
+                            infowindow.setContent(results[0].formatted_address);
+                            infowindow.open(map, marker);
+                        } else {
+                            window.alert('No results found');
+                        }
+                    } else {
+                        window.alert('Geocoder failed due to: ' + status);
+                    }
+                });
+                //https: //maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=YOUR_API_KEY
+                markersNew.push(marker);
+            });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?client=gme-telecompersonalsa&amp;v=3.exp&libraries=places&callback=initMap" async defer></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script> -->
+</body>
+
+
+<script>
+    markers = []
+    markersNew = []
+
+    function obtenerCanchas(bounds) {
+        console.log(bounds);
+        markers.forEach(function(marker) {
+            marker.setMap(null);
+        });
+        markers = []
+            //         var myLatLng = {lat: -25.363, lng: 131.044};
+
+        //   var marker = new google.maps.Marker({
+        //     position: myLatLng,
+        //     map: map,
+        //     title: 'Hello World!'
+        //   });
+
+
+
+        var req = new XMLHttpRequest();
+        req.open('GET', '/places?' + bounds, true);
+        // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        req.onreadystatechange = function(aEvt) {
+            if (req.readyState == 4) {
+                if (req.status !== 500) {
+                    console.log(JSON.parse(req.responseText));
+                    var res = JSON.parse(req.responseText);
+                    if (!res.ok) {
+                        console.log(res.message);
+                        return;
+                    }
+                    var places = res.places
+                    places.forEach(function(place) {
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            id: place._id,
+                            position: new google.maps.LatLng(place.loc.coordinates[1], place.loc.coordinates[0]),
+                            draggable: false
+                        });
+
+                        marker.addListener('click', function() {
+                            console.log(marker);
+                            map.setZoom(15);
+                            map.setCenter(marker.getPosition());
+                        });
+                        markers.push(marker);
+                    });
+
+
+                } else {
+                    console.log("Error loading page\n");
+                }
+            }
+        };
+        req.send(null);
+    }
+</script>
+
+
+
+
+
+
+
+</html>

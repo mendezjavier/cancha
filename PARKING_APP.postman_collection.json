@@ -1,0 +1,361 @@
+{
+	"info": {
+		"_postman_id": "cdee2c16-726f-4b74-ab1f-8f8af3653182",
+		"name": "PARKING_APP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "USUARIO: REGISTER",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "1@user.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "parking",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Usuario 1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"register"
+					]
+				},
+				"description": "Agregar usuario nuevo.\nROL: USER_ROLE\nGOOGLE: false\n"
+			},
+			"response": []
+		},
+		{
+			"name": "USUARIO: LOGIN",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2facdad1-8981-4d30-9c5d-72e76c19b47c",
+						"type": "text/javascript",
+						"exec": [
+							"let jsonData = pm.response.json();",
+							"//pm.variables.set('token',jsonData.token);",
+							"",
+							"pm.environment.set(\"token\", jsonData.token);",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "1@user.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "parking",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					]
+				},
+				"description": "LOGIN DE USUARIOS\nok: true/false\nusuario:{ data del usuario }\ntoken: token de Authorization"
+			},
+			"response": []
+		},
+		{
+			"name": "USUARIO: OBTENER TODOS LOS USUARIOS",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/usuario",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"usuario"
+					]
+				},
+				"description": "token requerido"
+			},
+			"response": []
+		},
+		{
+			"name": "PARKING: CREAR LUGAR DISPONIBLE",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "lat",
+							"value": "-34.566705",
+							"type": "text"
+						},
+						{
+							"key": "lng",
+							"value": "-58.478429",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/new-parking",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"new-parking"
+					]
+				},
+				"description": "Agregar un lugar disponible para estacionar.\nlat: -34.562787\nlng: -58.478086\ntoken: {{token}}"
+			},
+			"response": []
+		},
+		{
+			"name": "PARKING: BORRAR TUS LUGARES",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/parking",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"parking"
+					]
+				},
+				"description": "HECHO PARA PRUEBAS NOMAS"
+			},
+			"response": []
+		},
+		{
+			"name": "PARKING",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					},
+					{
+						"key": "5b9ab40216009c37384e0eb9",
+						"value": ""
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/parking?lat=-34.563585&lng=-58.478086&distance=20000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"parking"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "-34.563585"
+						},
+						{
+							"key": "lng",
+							"value": "-58.478086"
+						},
+						{
+							"key": "distance",
+							"value": "20000"
+						}
+					]
+				},
+				"description": "Obtener lugares cerca"
+			},
+			"response": []
+		},
+		{
+			"name": "PARKING: ACTUALIZAR LUGAR",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "lat",
+							"value": "-34.563585",
+							"type": "text"
+						},
+						{
+							"key": "lng",
+							"value": "-58.478086",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/parking/5b9ab40216009c37384e0eb9",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"parking",
+						"5b9ab40216009c37384e0eb9"
+					]
+				},
+				"description": "cambia el lugar a \"ocupado\"\navailable: false"
+			},
+			"response": []
+		},
+		{
+			"name": "PARKING: OBTENER LUGARES DEL USUARIO",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/user-parking?to=2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user-parking"
+					],
+					"query": [
+						{
+							"key": "to",
+							"value": "2"
+						}
+					]
+				},
+				"description": "Obtiene todos los lugares registrados por un usuario\nEl id se obtiene del token"
+			},
+			"response": []
+		},
+		{
+			"name": "PARKING: POLYGON",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/parking-bounds?token={{token}}&ne_lat=-34.56559941424622&ne_lng=-58.468955296144884&sw_lat=-58.48182989941637&sw_lng=-58.48182989941637",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"parking-bounds"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						},
+						{
+							"key": "ne_lat",
+							"value": "-34.56559941424622"
+						},
+						{
+							"key": "ne_lng",
+							"value": "-58.468955296144884"
+						},
+						{
+							"key": "sw_lat",
+							"value": "-58.48182989941637"
+						},
+						{
+							"key": "sw_lng",
+							"value": "-58.48182989941637"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
