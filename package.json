@@ -18,7 +18,7 @@
         "google-auth-library": "^2.0.0",
         "jsonwebtoken": "^8.3.0",
         "moment": "^2.22.2",
-        "mongoose": "^5.2.14",
+        "mongoose": "^5.7.5",
         "mongoose-unique-validator": "^2.0.1",
         "underscore": "^1.9.1"
     }
